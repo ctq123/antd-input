@@ -12,7 +12,7 @@ class LimitTextArea extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      val: '',
+      len: 0,
       maxLength: 200,
       isvalid: true, // 是否显示最大字符数
     }
@@ -25,9 +25,11 @@ class LimitTextArea extends PureComponent {
 
   // 若外部定义了onChange事件，handleChange将会被覆盖
   handleChange = (e) => {
+    const { sep } = this.props
     const val = e.target.value
+    const arr = (val || '').split(sep)
     this.setState({
-      val
+      len: arr.length
     })
   }
 
@@ -36,8 +38,9 @@ class LimitTextArea extends PureComponent {
     const { sep, maxLength, value, ...restProps } = this.props
     const max = maxLength > 0 ? maxLength : defaultMax
     /** form组件中，value有值 */
-    const arr = (value || this.state.val).split(sep)
-    const len = arr.length > max ? max : arr.length
+    const arr = (value || '').split(sep)
+    let len = value ? arr.length : this.state.len
+    len = len > max ? max : len
     /**截取最大字符串 */
     const val = arr.slice(0, len).join(sep)
     const n = val ? len : 0

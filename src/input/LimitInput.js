@@ -10,7 +10,7 @@ class LimitInput extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
+      len: 0,
       maxLength: 50,
       isvalid: true, // 是否显示最大字符数
     }
@@ -27,26 +27,25 @@ class LimitInput extends PureComponent {
 
   // 若外部定义了onChange事件，handleChange将会被覆盖
   handleChange = (e) => {
-    const value = e.target.value
+    const val = e.target.value
     this.setState({
-      value
+      len: val.length
     })
   }
 
   render () {
-    const { value: defaultVal, maxLength: defaultMax, isvalid } = this.state
+    const { maxLength: defaultMax, isvalid } = this.state
     const { suffix, maxLength, value, ...restProps } = this.props
     /** form组件中，value有值 */
-    const val = value || defaultVal
+    const len = value ? value.length : this.state.len
     const max = maxLength > 0 ? maxLength : defaultMax
-    const len = val.length > max ? max : val.length
 
     return isvalid ?
     <Input 
       onChange={ e => this.handleChange(e) } 
       suffix={`${len}/${max}`}
       maxLength={max}
-      value={val}
+      value={value}
       { ...restProps }
       />
     : <Input { ...this.props } />
