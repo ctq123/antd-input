@@ -100,5 +100,5 @@ maxLength | 设置用户最大输入字符数，原antd的Input属性 | number |
 ## LimitTextArea
 属性 | 描述 | 类型 | 默认值 | 是否必填
 ---|---|---|---|--
-maxLength | 设置用户最大输入字符数，原antd的InputArea属性 | number | 50 | 否
+maxLength | 设置用户最大输入字符数，原antd的InputArea属性 | number | 200 | 否
 sep | 分割符，可以是个字符串，如：','，也可以是个正则表达式，如：/\n\r/ | string | '' | 否
